@@ -1,16 +1,9 @@
 # Expenses
 
-A new Flutter project.
+Esse um dos projetos propostos durante curso de flutter da [Cod3r](https://www.cod3r.com.br).
 
-## Getting Started
+O app permite adicionar um despesa com data, remover despesa e também possui um gráfico apresentando o percentual de gastos nos últimos 7 dias.
 
-This project is a starting point for a Flutter application.
+## Prints
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Home screen](.github/home1.png) ![New expense screen](.github/new_expense.png) ![Expense select date screen](.github/expense_date.png) ![Home screen updated](.github/home2.png)
