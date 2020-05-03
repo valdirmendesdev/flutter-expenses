@@ -17,18 +17,25 @@ class ExpensesApp extends StatelessWidget {
         accentColor: Colors.amber,
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
-                title: TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
-            )),
+              title: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
+              button: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
         appBarTheme: AppBarTheme(
-            textTheme: ThemeData.light().textTheme.copyWith(
-                    title: TextStyle(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                title: TextStyle(
                   fontFamily: 'OpenSans',
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                ))),
+                ),
+              ),
+        ),
       ),
       debugShowCheckedModeBanner: false,
     );
@@ -58,6 +65,18 @@ class _MyHomePageState extends State<MyHomePage> {
         Duration(days: 3),
       ),
     ),
+    Transaction(
+      id: 't3',
+      title: 'Cartão de crédito',
+      value: 100.76,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't4',
+      title: 'Internet',
+      value: 180.90,
+      date: DateTime.now(),
+    ),
   ];
 
   List<Transaction> get _recentTransactions {
@@ -70,12 +89,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  _addTransaction(String title, double value) {
+  _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
         id: Random().nextDouble().toString(),
         title: title,
         value: value,
-        date: DateTime.now());
+        date: date);
     setState(() {
       _transactions.add(newTransaction);
     });
