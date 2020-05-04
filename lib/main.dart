@@ -5,11 +5,16 @@ import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+// import 'package:flutter/services.dart';
+
 void main() => runApp(ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Força a utilização para orientação específica
+    // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
     return MaterialApp(
       home: MyHomePage(),
       theme: ThemeData(
@@ -79,6 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   ];
 
+  bool _showChart = false;
+
   List<Transaction> get _recentTransactions {
     return _transactions.where((tr) {
       return tr.date.isAfter(
@@ -120,6 +127,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     final appBar = AppBar(
       title: Text(
         'Despesas Pessoais',
@@ -129,6 +139,15 @@ class _MyHomePageState extends State<MyHomePage> {
         // ),
       ),
       actions: <Widget>[
+        if (isLandscape)
+          IconButton(
+            icon: Icon(_showChart ? Icons.list : Icons.insert_chart),
+            onPressed: () {
+              setState(() {
+                _showChart = !_showChart;
+              });
+            },
+          ),
         IconButton(
           icon: Icon(Icons.add),
           onPressed: () => _openTransacationFormModal(context),
@@ -145,17 +164,19 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Container(
-            height: availableHeight * 0.25,
-            child: Chart(_recentTransactions),
-          ),
-          Container(
-            height: availableHeight * 0.75,
-            child: TransactionList(
-              transactions: _transactions,
-              onRemove: _removeTransaction,
+          if (!isLandscape || _showChart)
+            Container(
+              height: availableHeight * (isLandscape ? 0.75 : 0.25),
+              child: Chart(_recentTransactions),
             ),
-          ),
+          if (!isLandscape || !_showChart)
+            Container(
+              height: availableHeight * 0.75,
+              child: TransactionList(
+                transactions: _transactions,
+                onRemove: _removeTransaction,
+              ),
+            ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
